@@ -1,0 +1,23 @@
+WILLIAM PRÉSTAMOS — PAQUETE PWA
+
+ARCHIVOS
+- index.html: aplicación.
+- manifest.webmanifest: identidad de la aplicación instalable.
+- sw.js: caché para funcionamiento offline básico.
+- icon.svg: logo.
+
+PRIMER USO
+1. Publica toda esta carpeta en un hosting HTTPS o ejecútala en localhost.
+2. Abre la dirección en Chrome o Edge.
+3. Crea la cuenta administradora.
+4. En Android: menú ⋮ > Instalar aplicación / Añadir a pantalla de inicio.
+   En iPhone: Safari > Compartir > Añadir a pantalla de inicio.
+5. En PC: usa el icono Instalar de la barra de direcciones si aparece.
+
+IMPORTANTE
+- No se instala como PWA abriendo el HTML directamente con file://.
+- La cuenta y los datos se guardan localmente en el navegador/dispositivo. No hay sincronización entre dispositivos ni recuperación de contraseña.
+- La contraseña local usa hash SHA-256, pero esto NO equivale a seguridad de servidor. No usar para datos financieros reales sensibles sin backend, HTTPS, autenticación robusta, base de datos, copias de seguridad y controles de acceso.
+- Los documentos de garantía se describen en el registro; esta versión no sube archivos a un almacenamiento seguro.
+- La mora es una estimación configurable sobre cuotas vencidas. Verifica legalidad, contrato, tasas y reglas aplicables antes de cobrar.
+- Las cuotas se calculan con interés fijo simple al originar el préstamo; los abonos se registran contra el saldo total pendiente. Esta versión no recalcula el calendario tras abonos a capital.
