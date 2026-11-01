@@ -1,125 +1,954 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1d3a"><meta name="description" content="William Préstamos - Gestión de préstamos y cobros">
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>William Préstamos</title>
-<style>
-:root{--navy:#0b1d3a;--navy2:#142c50;--gold:#e0b43f;--gold2:#f7d979;--bg:#f3f5f9;--paper:#fff;--ink:#18243a;--muted:#718096;--line:#e5e9f0;--blue:#2463d3;--green:#138653;--red:#c43d4b;--orange:#bd7411;--shadow:0 8px 28px #14284b12}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px Inter,system-ui,Segoe UI,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:700}.hidden{display:none!important}
-#auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 15% 10%,#274574 0,transparent 35%),linear-gradient(145deg,#07152b,#142d53)}.authbox{background:white;border-radius:20px;padding:30px;width:min(430px,100%);box-shadow:0 25px 90px #0005}.brandmark{width:72px;height:72px;margin:auto auto 12px;display:block}.brandname{text-align:center;color:var(--navy);font-size:27px;font-weight:900;letter-spacing:-1px}.brandname span{color:#c18c12}.tag{text-align:center;color:var(--muted);margin:5px 0 25px}.authbox h2{font-size:18px;margin:0 0 16px}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:750;color:#526174}.field input,.field select,.field textarea,.toolbar input,.toolbar select{width:100%;padding:11px;border:1px solid #d8e0eb;border-radius:9px;background:#fff;outline:none;color:var(--ink)}input:focus,select:focus,textarea:focus{border-color:#7899df;box-shadow:0 0 0 3px #2463d31a}.primary{background:var(--navy);color:white}.gold{background:var(--gold);color:#18243a}.soft{background:#edf2fa;color:#29456e}.danger{background:#fff0f1;color:var(--red)}.success{background:#e8f7ef;color:var(--green)}.full{width:100%}.linkbtn{background:none;color:var(--blue);padding:8px}.tiny{font-size:11px;color:var(--muted);line-height:1.5}
-.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.side{background:var(--navy);color:#fff;padding:20px 14px;display:flex;flex-direction:column;gap:20px}.sidebrand{display:flex;align-items:center;gap:10px;padding:4px 8px}.sidebrand img{width:45px;height:45px}.sidebrand b{font-size:17px;line-height:1.1}.sidebrand small{color:var(--gold);display:block;font-weight:800}.nav{display:grid;gap:5px}.nav button{background:transparent;color:#c7d2e4;text-align:left;padding:12px}.nav button.active,.nav button:hover{background:#21395d;color:white}.nav .ico{display:inline-block;width:25px;color:var(--gold)}.sidefoot{margin-top:auto;color:#9aaac1;font-size:11px;line-height:1.5;padding:8px}.main{padding:26px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}.top h1{margin:0;font-size:25px}.muted{color:var(--muted)}.topright{display:flex;gap:8px;align-items:center}.userpill{background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 12px;font-size:12px}
-.notice{padding:12px 14px;border-radius:10px;background:#fff8e7;border:1px solid #f0dfb5;color:#78550e;font-size:12px;line-height:1.5;margin-bottom:17px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:17px}.card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.card{padding:17px}.card small{color:var(--muted)}.card strong{display:block;font-size:23px;margin:9px 0 4px;overflow-wrap:anywhere}.card em{font-size:11px;color:var(--muted);font-style:normal}.panel{padding:18px;margin-bottom:17px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panel h2{font-size:16px;margin:0}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.toolbar input{max-width:330px}.toolbar select{max-width:190px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:720px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:12px;vertical-align:middle}th{background:#f9fafc;color:var(--muted)}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:#edf1f6;color:#526174;font-size:10px;font-weight:800}.pill.ok{background:#e6f7ee;color:#147a4a}.pill.warn{background:#fff2e3;color:#a65b08}.pill.bad{background:#ffebed;color:#b42e3e}.actions{display:flex;gap:5px;flex-wrap:wrap}.small{padding:7px 9px;font-size:11px}.empty{text-align:center;padding:30px;color:var(--muted)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field.fullfield{grid-column:1/-1}.modalbg{position:fixed;inset:0;background:#08152bb8;z-index:20;display:grid;place-items:center;padding:16px}.modal{background:#fff;border-radius:16px;padding:22px;width:min(720px,100%);max-height:92vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modalhead h2{margin:0;font-size:18px}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.summary{background:#f5f7fb;border:1px solid var(--line);border-radius:10px;padding:12px;line-height:1.8}.reportgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.report{padding:14px;border-radius:10px;background:#f7f9fc;border:1px solid var(--line)}.report small{color:var(--muted)}.report b{display:block;font-size:18px;margin-top:6px}.installhint{font-size:12px;color:#d6dfef;line-height:1.5;padding:10px}.bottomnav{display:none}.footer{text-align:center;color:#9aa4b3;font-size:11px;padding:12px}
-@media(max-width:950px){.app{grid-template-columns:1fr}.side{position:sticky;top:0;z-index:5;padding:9px 10px;gap:5px}.sidebrand{display:none}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;padding:10px;font-size:12px}.sidefoot{display:none}.main{padding:17px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:580px){.main{padding:12px}.top{align-items:flex-start}.top h1{font-size:21px}.topright{flex-direction:column;align-items:flex-end}.cards{gap:8px}.card{padding:12px}.card strong{font-size:18px}.grid2,.reportgrid{grid-template-columns:1fr}.field.fullfield{grid-column:auto}.panel{padding:13px}.authbox{padding:23px}}
-@media print{.side,.topright,.toolbar,.actions,.no-print,.notice{display:none!important}.app{display:block}.main{padding:0}.panel,.card{box-shadow:none}body{background:white}}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#0b1d3a">
+    <meta name="description" content="William Préstamos - Gestión de préstamos y cobros">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <title>William Préstamos</title>
+    <style>
+        :root {
+            --navy: #0b1d3a;
+            --navy2: #142c50;
+            --gold: #e0b43f;
+            --gold2: #f7d979;
+            --bg: #f3f5f9;
+            --paper: #fff;
+            --ink: #18243a;
+            --muted: #718096;
+            --line: #e5e9f0;
+            --blue: #2463d3;
+            --green: #138653;
+            --red: #c43d4b;
+            --orange: #bd7411;
+            --shadow: 0 8px 28px #14284b12
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 14px Inter,system-ui,Segoe UI,Arial,sans-serif
+        }
+
+        button, input, select, textarea {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer;
+            border: 0;
+            border-radius: 9px;
+            padding: 10px 14px;
+            font-weight: 700
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        #auth {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: radial-gradient(circle at 15% 10%,#274574 0,transparent 35%),linear-gradient(145deg,#07152b,#142d53)
+        }
+
+        .authbox {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: min(430px,100%);
+            box-shadow: 0 25px 90px #0005
+        }
+
+        .brandmark {
+            width: 72px;
+            height: 72px;
+            margin: auto auto 12px;
+            display: block
+        }
+
+        .brandname {
+            text-align: center;
+            color: var(--navy);
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: -1px
+        }
+
+            .brandname span {
+                color: #c18c12
+            }
+
+        .tag {
+            text-align: center;
+            color: var(--muted);
+            margin: 5px 0 25px
+        }
+
+        .authbox h2 {
+            font-size: 18px;
+            margin: 0 0 16px
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 13px
+        }
+
+            .field label {
+                font-size: 12px;
+                font-weight: 750;
+                color: #526174
+            }
+
+            .field input, .field select, .field textarea, .toolbar input, .toolbar select {
+                width: 100%;
+                padding: 11px;
+                border: 1px solid #d8e0eb;
+                border-radius: 9px;
+                background: #fff;
+                outline: none;
+                color: var(--ink)
+            }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #7899df;
+            box-shadow: 0 0 0 3px #2463d31a
+        }
+
+        .primary {
+            background: var(--navy);
+            color: white
+        }
+
+        .gold {
+            background: var(--gold);
+            color: #18243a
+        }
+
+        .soft {
+            background: #edf2fa;
+            color: #29456e
+        }
+
+        .danger {
+            background: #fff0f1;
+            color: var(--red)
+        }
+
+        .success {
+            background: #e8f7ef;
+            color: var(--green)
+        }
+
+        .full {
+            width: 100%
+        }
+
+        .linkbtn {
+            background: none;
+            color: var(--blue);
+            padding: 8px
+        }
+
+        .tiny {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 250px 1fr
+        }
+
+        .side {
+            background: var(--navy);
+            color: #fff;
+            padding: 20px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px
+        }
+
+        .sidebrand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 8px
+        }
+
+            .sidebrand img {
+                width: 45px;
+                height: 45px
+            }
+
+            .sidebrand b {
+                font-size: 17px;
+                line-height: 1.1
+            }
+
+            .sidebrand small {
+                color: var(--gold);
+                display: block;
+                font-weight: 800
+            }
+
+        .nav {
+            display: grid;
+            gap: 5px
+        }
+
+            .nav button {
+                background: transparent;
+                color: #c7d2e4;
+                text-align: left;
+                padding: 12px
+            }
+
+                .nav button.active, .nav button:hover {
+                    background: #21395d;
+                    color: white
+                }
+
+            .nav .ico {
+                display: inline-block;
+                width: 25px;
+                color: var(--gold)
+            }
+
+        .sidefoot {
+            margin-top: auto;
+            color: #9aaac1;
+            font-size: 11px;
+            line-height: 1.5;
+            padding: 8px
+        }
+
+        .main {
+            padding: 26px;
+            min-width: 0
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px
+        }
+
+            .top h1 {
+                margin: 0;
+                font-size: 25px
+            }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .topright {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .userpill {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            padding: 8px 12px;
+            font-size: 12px
+        }
+
+        .notice {
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #fff8e7;
+            border: 1px solid #f0dfb5;
+            color: #78550e;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 17px
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4,minmax(0,1fr));
+            gap: 14px;
+            margin-bottom: 17px
+        }
+
+        .card, .panel {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: var(--shadow)
+        }
+
+        .card {
+            padding: 17px
+        }
+
+            .card small {
+                color: var(--muted)
+            }
+
+            .card strong {
+                display: block;
+                font-size: 23px;
+                margin: 9px 0 4px;
+                overflow-wrap: anywhere
+            }
+
+            .card em {
+                font-size: 11px;
+                color: var(--muted);
+                font-style: normal
+            }
+
+        .panel {
+            padding: 18px;
+            margin-bottom: 17px
+        }
+
+        .panelhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px
+        }
+
+        .panel h2 {
+            font-size: 16px;
+            margin: 0
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 13px
+        }
+
+            .toolbar input {
+                max-width: 330px
+            }
+
+            .toolbar select {
+                max-width: 190px
+            }
+
+        .tablewrap {
+            overflow: auto
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 720px
+        }
+
+        th, td {
+            text-align: left;
+            padding: 11px 9px;
+            border-bottom: 1px solid var(--line);
+            font-size: 12px;
+            vertical-align: middle
+        }
+
+        th {
+            background: #f9fafc;
+            color: var(--muted)
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #edf1f6;
+            color: #526174;
+            font-size: 10px;
+            font-weight: 800
+        }
+
+            .pill.ok {
+                background: #e6f7ee;
+                color: #147a4a
+            }
+
+            .pill.warn {
+                background: #fff2e3;
+                color: #a65b08
+            }
+
+            .pill.bad {
+                background: #ffebed;
+                color: #b42e3e
+            }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap
+        }
+
+        .small {
+            padding: 7px 9px;
+            font-size: 11px
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: var(--muted)
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 12px
+        }
+
+        .field.fullfield {
+            grid-column: 1/-1
+        }
+
+        .modalbg {
+            position: fixed;
+            inset: 0;
+            background: #08152bb8;
+            z-index: 20;
+            display: grid;
+            place-items: center;
+            padding: 16px
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 22px;
+            width: min(720px,100%);
+            max-height: 92vh;
+            overflow: auto
+        }
+
+        .modalhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px
+        }
+
+            .modalhead h2 {
+                margin: 0;
+                font-size: 18px
+            }
+
+        .modalfoot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .summary {
+            background: #f5f7fb;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px;
+            line-height: 1.8
+        }
+
+        .reportgrid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px
+        }
+
+        .report {
+            padding: 14px;
+            border-radius: 10px;
+            background: #f7f9fc;
+            border: 1px solid var(--line)
+        }
+
+            .report small {
+                color: var(--muted)
+            }
+
+            .report b {
+                display: block;
+                font-size: 18px;
+                margin-top: 6px
+            }
+
+        .installhint {
+            font-size: 12px;
+            color: #d6dfef;
+            line-height: 1.5;
+            padding: 10px
+        }
+
+        .bottomnav {
+            display: none
+        }
+
+        .footer {
+            text-align: center;
+            color: #9aa4b3;
+            font-size: 11px;
+            padding: 12px
+        }
+
+        /* Estilos de Documento Estándar */
+        .print-doc {
+            font-family: Arial,sans-serif;
+            color: #111;
+            padding: 20px;
+            line-height: 1.4
+        }
+
+        .print-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #0b1d3a;
+            padding-bottom: 12px;
+            margin-bottom: 18px
+        }
+
+            .print-header h1 {
+                margin: 0;
+                color: #0b1d3a;
+                font-size: 22px
+            }
+
+            .print-header p {
+                margin: 2px 0;
+                font-size: 11px;
+                color: #555
+            }
+
+        .print-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 12px
+        }
+
+        .print-box {
+            border: 1px solid #dcdcdc;
+            padding: 10px;
+            border-radius: 6px;
+            background: #fafafa
+        }
+
+            .print-box b {
+                color: #0b1d3a
+            }
+
+        .print-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 11px
+        }
+
+            .print-table th {
+                background: #0b1d3a;
+                color: #fff;
+                padding: 6px 8px;
+                text-align: left;
+                font-weight: bold
+            }
+
+            .print-table td {
+                border-bottom: 1px solid #e0e0e0;
+                padding: 6px 8px
+            }
+
+            .print-table tr:nth-child(even) {
+                background: #f9f9f9
+            }
+
+        .print-totals {
+            float: right;
+            width: 240px;
+            margin-top: 10px;
+            font-size: 12px;
+            margin-bottom: 20px
+        }
+
+            .print-totals div {
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 0;
+                border-bottom: 1px solid #eee
+            }
+
+                .print-totals div.grand-total {
+                    font-weight: bold;
+                    font-size: 14px;
+                    border-bottom: 2px solid #0b1d3a;
+                    color: #0b1d3a;
+                    padding-top: 6px
+                }
+
+        .print-signatures {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: center;
+            font-size: 11px;
+            clear: both
+        }
+
+            .print-signatures div {
+                flex: 1;
+                border-top: 1px solid #444;
+                padding-top: 6px
+            }
+
+        /* Estilos específicos para modo Ticket Térmico (80mm / 58mm) */
+        body.ticket-mode .print-doc {
+            width: 72mm;
+            margin: 0 auto;
+            padding: 5px;
+            font-size: 11px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body.ticket-mode .print-header {
+            flex-direction: column;
+            text-align: center;
+            border-bottom: 1px dashed #000;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+            body.ticket-mode .print-header h1 {
+                font-size: 15px;
+            }
+
+        body.ticket-mode .print-grid {
+            display: block;
+        }
+
+        body.ticket-mode .print-box {
+            border: none;
+            padding: 2px 0;
+            background: none;
+            margin-bottom: 5px;
+        }
+
+        body.ticket-mode .print-table th, body.ticket-mode .print-table td {
+            padding: 3px 2px;
+            font-size: 10px;
+        }
+
+        body.ticket-mode .print-totals {
+            width: 100%;
+            float: none;
+        }
+
+        body.ticket-mode .print-signatures {
+            margin-top: 30px;
+            display: block;
+            text-align: center;
+        }
+
+            body.ticket-mode .print-signatures div {
+                border-top: 1px dashed #000;
+                margin-top: 25px;
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        @media(max-width:950px) {
+            .app {
+                grid-template-columns: 1fr
+            }
+
+            .side {
+                position: sticky;
+                top: 0;
+                z-index: 5;
+                padding: 9px 10px;
+                gap: 5px
+            }
+
+            .sidebrand {
+                display: none
+            }
+
+            .nav {
+                display: flex;
+                overflow-x: auto
+            }
+
+                .nav button {
+                    white-space: nowrap;
+                    padding: 10px;
+                    font-size: 12px
+                }
+
+            .sidefoot {
+                display: none
+            }
+
+            .main {
+                padding: 17px
+            }
+
+            .cards {
+                grid-template-columns: repeat(2,minmax(0,1fr))
+            }
+        }
+
+        @media(max-width:580px) {
+            .main {
+                padding: 12px
+            }
+
+            .top {
+                align-items: flex-start
+            }
+
+                .top h1 {
+                    font-size: 21px
+                }
+
+            .topright {
+                flex-direction: column;
+                align-items: flex-end
+            }
+
+            .cards {
+                gap: 8px
+            }
+
+            .card {
+                padding: 12px
+            }
+
+                .card strong {
+                    font-size: 18px
+                }
+
+            .grid2, .reportgrid {
+                grid-template-columns: 1fr
+            }
+
+            .field.fullfield {
+                grid-column: auto
+            }
+
+            .panel {
+                padding: 13px
+            }
+
+            .authbox {
+                padding: 23px
+            }
+        }
+
+        @media print {
+            .side, .topright, .toolbar, .actions, .no-print, .notice, .modalfoot {
+                display: none !important
+            }
+
+            .app {
+                display: block
+            }
+
+            .main {
+                padding: 0
+            }
+
+            .panel, .card {
+                box-shadow: none;
+                border: none
+            }
+
+            body {
+                background: white
+            }
+
+            .modalbg {
+                position: static;
+                background: none;
+                padding: 0
+            }
+
+            .modal {
+                box-shadow: none;
+                border: none;
+                max-height: none;
+                padding: 0;
+                width: 100%
+            }
+
+            /* Si el body tiene la clase ticket-mode, forzamos dimensiones para rollo térmico */
+            body.ticket-mode {
+                width: 80mm;
+                margin: 0;
+            }
+
+                body.ticket-mode .print-doc {
+                    width: 100% !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+        }
+    </style>
 </head>
 <body>
-<section id="auth">
- <div class="authbox">
-  <img class="brandmark" src="icon.svg" alt="William Préstamos">
-  <div class="brandname">William <span>Préstamos</span></div><div class="tag">Tu confianza, nuestra prioridad.</div>
-  <div id="setup">
-   <h2>Crear cuenta administradora</h2>
-   <p class="tiny">Crea la cuenta principal para comenzar. En esta versión la cuenta se guarda solamente en este dispositivo/navegador.</p>
-   <form id="setupForm">
-    <div class="field"><label>Nombre del administrador</label><input name="name" required placeholder="Tu nombre"></div>
-    <div class="field"><label>Correo o usuario</label><input name="user" required autocomplete="username" placeholder="admin"></div>
-    <div class="field"><label>Contraseña (mínimo 8 caracteres)</label><input name="pass" type="password" minlength="8" required autocomplete="new-password"></div>
-    <button class="primary full">Crear cuenta y entrar</button>
-   </form>
-  </div>
-  <div id="login" class="hidden">
-   <h2>Iniciar sesión</h2>
-   <form id="loginForm">
-    <div class="field"><label>Usuario o correo</label><input name="user" required autocomplete="username"></div>
-    <div class="field"><label>Contraseña</label><input name="pass" type="password" required autocomplete="current-password"></div>
-    <button class="primary full">Iniciar sesión</button>
-   </form>
-   <p class="tiny" style="text-align:center;margin-top:12px">Si olvidaste la contraseña, en esta versión local no existe recuperación por correo. Conserva tus credenciales.</p>
-  </div>
-  <p id="authError" style="color:#bd3345;font-size:12px"></p>
- </div>
-</section>
-<div id="application" class="app hidden">
- <aside class="side">
-  <div class="sidebrand"><img src="icon.svg"><b>William<small>PRÉSTAMOS</small></b></div>
-  <nav class="nav">
-   <button class="active" data-page="dashboard"><span class="ico">▦</span>Panel principal</button>
-   <button data-page="clients"><span class="ico">♙</span>Clientes</button>
-   <button data-page="loans"><span class="ico">▤</span>Préstamos</button>
-   <button data-page="payments"><span class="ico">＄</span>Pagos y cobros</button>
-   <button data-page="collectors"><span class="ico">♧</span>Cobradores</button>
-   <button data-page="reports"><span class="ico">▥</span>Reportes</button>
-   <button data-page="settings"><span class="ico">⚙</span>Configuración</button>
-  </nav>
-  <div class="sidefoot">William Préstamos<br>Gestión local de cartera</div>
- </aside>
- <main class="main">
-  <header class="top"><div><h1 id="pageTitle">Panel principal</h1><div class="muted" id="dateLine"></div></div><div class="topright"><span class="userpill" id="who"></span><button class="gold" onclick="openLoan()">＋ Nuevo préstamo</button><button class="soft" onclick="logout()">Salir</button></div></header>
-  <div class="notice">Versión local de un solo administrador. Los datos se almacenan en este navegador. Para operar con seguridad desde varios teléfonos/PC, sincronizar usuarios y recuperar contraseñas, se necesita publicar el sistema con servidor y base de datos. Usa HTTPS al instalarlo como aplicación.</div>
-  <section id="dashboard" class="page">
-   <div class="cards">
-    <div class="card"><small>Capital colocado</small><strong id="capitalK">RD$ 0</strong><em>Capital original prestado</em></div>
-    <div class="card"><small>Total por cobrar</small><strong id="pendingK">RD$ 0</strong><em>Saldo pendiente + mora acumulada</em></div>
-    <div class="card"><small>Total cobrado</small><strong id="collectedK">RD$ 0</strong><em>Pagos recibidos</em></div>
-    <div class="card"><small>Préstamos activos</small><strong id="activeK">0</strong><em>Con balance pendiente</em></div>
-   </div>
-   <div class="panel"><div class="panelhead"><h2>Próximos vencimientos</h2><button class="soft small" onclick="page('loans')">Ver préstamos</button></div><div id="dueTable"></div></div>
-   <div class="panel"><div class="panelhead"><h2>Actividad reciente</h2></div><div id="activity"></div></div>
-  </section>
-  <section id="clients" class="page hidden"><div class="panel"><div class="panelhead"><h2>Clientes</h2><button class="primary" onclick="openClient()">＋ Agregar cliente</button></div><div class="toolbar"><input id="clientQ" placeholder="Buscar nombre, cédula o teléfono..." oninput="renderClients()"></div><div id="clientTable"></div></div></section>
-  <section id="loans" class="page hidden"><div class="panel"><div class="panelhead"><h2>Préstamos</h2><button class="primary" onclick="openLoan()">＋ Nuevo préstamo</button></div><div class="toolbar"><input id="loanQ" placeholder="Buscar cliente o código..." oninput="renderLoans()"><select id="loanF" onchange="renderLoans()"><option value="all">Todos</option><option value="active">Activos</option><option value="paid">Pagados</option></select></div><div id="loanTable"></div></div></section>
-  <section id="payments" class="page hidden"><div class="panel"><div class="panelhead"><h2>Pagos y cobros</h2><button class="primary" onclick="openPayment()">＋ Registrar pago</button></div><div class="toolbar"><input id="payQ" placeholder="Buscar cliente o referencia..." oninput="renderPayments()"></div><div id="paymentTable"></div></div></section>
-  <section id="collectors" class="page hidden"><div class="panel"><div class="panelhead"><h2>Cobradores</h2><button class="primary" onclick="openCollector()">＋ Agregar cobrador</button></div><div id="collectorTable"></div></div></section>
-  <section id="reports" class="page hidden"><div class="panel"><div class="panelhead"><h2>Resumen financiero</h2><button class="soft" onclick="print()">Imprimir</button></div><div id="reportStats" class="reportgrid"></div></div><div class="panel"><h2>Respaldo y restauración</h2><p class="muted">Exporta periódicamente la base de datos JSON. Guárdala en un lugar seguro.</p><div class="toolbar"><button class="primary" onclick="backup()">Descargar respaldo</button><label class="soft" style="padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer" for="restore">Restaurar archivo</label><input class="hidden" id="restore" type="file" accept="application/json" onchange="restore(event)"></div></div></section>
-  <section id="settings" class="page hidden"><div class="panel"><h2>Configuración del negocio</h2><div class="grid2" style="margin-top:15px"><div class="field"><label>Nombre comercial</label><input id="bizName"></div><div class="field"><label>Teléfono del negocio</label><input id="bizPhone"></div><div class="field"><label>Dirección</label><input id="bizAddress"></div><div class="field"><label>Mora predeterminada (% diario sobre cuota vencida)</label><input id="defaultLate" type="number" min="0" step=".01"></div></div><button class="primary" onclick="saveSettings()">Guardar configuración</button></div><div class="panel"><h2>Seguridad y datos</h2><p class="muted">Cierra la sesión al terminar. Protege el equipo y descarga respaldos. El acceso local no equivale a una autenticación segura de servidor.</p><button class="danger" onclick="resetData()">Borrar todos los datos del negocio</button></div></section>
-  <div class="footer">William Préstamos · Tu confianza, nuestra prioridad.</div>
- </main>
-</div>
-<div id="modal"></div>
-<script>
-const DBKEY='wp_business_v2',AUTHKEY='wp_auth_v2',SESSION='wp_session_v2';
-let db=load(),auth=JSON.parse(localStorage.getItem(AUTHKEY)||'null'),current=null;
-function fresh(){return {clients:[],loans:[],payments:[],collectors:[],settings:{name:'William Préstamos',phone:'',address:'',lateRate:0.5}}}
-function load(){try{return JSON.parse(localStorage.getItem(DBKEY))||fresh()}catch{return fresh()}}
-function save(){localStorage.setItem(DBKEY,JSON.stringify(db));render()}
-const $=id=>document.getElementById(id),fmt=n=>'RD$ '+Number(n||0).toLocaleString('es-DO',{minimumFractionDigits:2,maximumFractionDigits:2}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),id=()=>Math.random().toString(36).slice(2,7).toUpperCase()+Date.now().toString(36).slice(-4).toUpperCase(),today=()=>new Date().toISOString().slice(0,10),dateFmt=d=>d?new Date(d+'T12:00:00').toLocaleDateString('es-DO'):'—';
-const client=id=>db.clients.find(c=>c.id===id),clientLabel=id=>client(id)?.name||'Cliente eliminado',loan=id=>db.loans.find(l=>l.id===id);
-function dateAdd(d,n,unit){let x=new Date(d+'T12:00:00');if(unit==='Diario')x.setDate(x.getDate()+n);if(unit==='Semanal')x.setDate(x.getDate()+7*n);if(unit==='Quincenal')x.setDate(x.getDate()+15*n);if(unit==='Mensual')x.setMonth(x.getMonth()+n);return x.toISOString().slice(0,10)}
-function installments(l){return Array.from({length:l.terms},(_,i)=>({n:i+1,due:dateAdd(l.firstDue||l.start,i,l.frequency),amount:l.total/l.terms}))}
-function loanPaid(l){return db.payments.filter(p=>p.loanId===l.id).reduce((s,p)=>s+p.amount,0)}
-function loanBalance(l){return Math.max(0,l.total-loanPaid(l))}
-function lateFee(l){let paid=loanPaid(l),fee=0;for(const x of installments(l)){let due=new Date(x.due+'T23:59:59'),days=Math.max(0,Math.floor((new Date()-due)/86400000));let covered=Math.min(x.amount,paid);paid-=covered;let overdue=x.amount-covered;if(overdue>0&&days>0)fee+=overdue*(Number(l.lateRate)/100)*days}return fee}
-function dueRows(l){let paid=loanPaid(l);return installments(l).map(x=>{let covered=Math.min(x.amount,paid);paid-=covered;return {...x,remaining:x.amount-covered}})}
-function authInit(){if(auth){$('setup').classList.add('hidden');$('login').classList.remove('hidden')}else{$('setup').classList.remove('hidden');$('login').classList.add('hidden')}}
-async function hash(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+'|WilliamPrestamosLocalSalt'));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-$('setupForm').onsubmit=async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));auth={name:d.name,user:d.user.toLowerCase(),hash:await hash(d.pass)};localStorage.setItem(AUTHKEY,JSON.stringify(auth));enter()};
-$('loginForm').onsubmit=async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));if(d.user.toLowerCase()===auth.user&&await hash(d.pass)===auth.hash)enter();else $('authError').textContent='Usuario o contraseña incorrectos.'};
-function enter(){current=auth;sessionStorage.setItem(SESSION,'1');$('auth').classList.add('hidden');$('application').classList.remove('hidden');$('who').textContent='👤 '+auth.name; $('dateLine').textContent=new Date().toLocaleDateString('es-DO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});render();authInit()}
-function logout(){$('application').classList.add('hidden');$('auth').classList.remove('hidden');$('loginForm').reset();authInit();sessionStorage.removeItem(SESSION)}
-function page(p){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(p).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));$('pageTitle').textContent=({dashboard:'Panel principal',clients:'Clientes',loans:'Préstamos',payments:'Pagos y cobros',collectors:'Cobradores',reports:'Reportes',settings:'Configuración'})[p];render()}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));
-function table(head,rows){return rows.length?'<div class="tablewrap"><table><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>':'<div class="empty">No hay registros todavía.</div>'}
-function render(){renderDash();renderClients();renderLoans();renderPayments();renderCollectors();renderReports();if($('bizName')){$('bizName').value=db.settings.name||'William Préstamos';$('bizPhone').value=db.settings.phone||'';$('bizAddress').value=db.settings.address||'';$('defaultLate').value=db.settings.lateRate??.5}}
-function renderDash(){let capital=db.loans.reduce((s,l)=>s+l.capital,0),collected=db.payments.reduce((s,p)=>s+p.amount,0),pending=db.loans.reduce((s,l)=>s+loanBalance(l)+lateFee(l),0);$('capitalK').textContent=fmt(capital);$('collectedK').textContent=fmt(collected);$('pendingK').textContent=fmt(pending);$('activeK').textContent=db.loans.filter(l=>loanBalance(l)>.005).length;
-let upcoming=[];db.loans.forEach(l=>dueRows(l).forEach(x=>{if(x.remaining>.005)upcoming.push({l,x})}));upcoming.sort((a,b)=>a.x.due.localeCompare(b.x.due));$('dueTable').innerHTML=table(['Cliente','Cuota','Vencimiento','Pendiente','Estado'],upcoming.slice(0,8).map(({l,x})=>`<tr><td>${esc(clientLabel(l.clientId))}</td><td>${x.n}/${l.terms}</td><td>${dateFmt(x.due)}</td><td>${fmt(x.remaining)}</td><td><span class="pill ${x.due<today()?'bad':'warn'}">${x.due<today()?'Vencida':'Pendiente'}</span></td></tr>`));
-$('activity').innerHTML=table(['Fecha','Cliente','Monto','Método'],db.payments.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(p=>`<tr><td>${dateFmt(p.date)}</td><td>${esc(clientLabel(loan(p.loanId)?.clientId))}</td><td>${fmt(p.amount)}</td><td>${esc(p.method)}</td></tr>`))}
-function renderClients(){let q=($('clientQ')?.value||'').toLowerCase();$('clientTable').innerHTML=table(['Nombre','Cédula','Teléfono','Dirección','Acciones'],db.clients.filter(c=>(c.name+c.cedula+c.phone).toLowerCase().includes(q)).map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${esc(c.cedula)}</td><td>${esc(c.phone)}</td><td>${esc(c.address||'—')}</td><td><div class="actions"><button class="soft small" onclick="openClient('${c.id}')">Editar</button><button class="soft small" onclick="statement('${c.id}')">Estado cuenta</button><button class="danger small" onclick="delClient('${c.id}')">Eliminar</button></div></td></tr>`))}
-function renderLoans(){let q=($('loanQ')?.value||'').toLowerCase(),f=$('loanF')?.value||'all';$('loanTable').innerHTML=table(['Código / Cliente','Capital','Interés','Total','Cuota','Balance','Mora','Estado','Acciones'],db.loans.filter(l=>(clientLabel(l.clientId)+l.id).toLowerCase().includes(q)&&(f==='all'||(f==='active'?loanBalance(l)>.005:loanBalance(l)<=.005))).map(l=>`<tr><td><b>${l.id}</b><br>${esc(clientLabel(l.clientId))}</td><td>${fmt(l.capital)}</td><td>${l.rate}% ${esc(l.rateMode)}</td><td>${fmt(l.total)}</td><td>${fmt(l.total/l.terms)}</td><td>${fmt(loanBalance(l))}</td><td>${fmt(lateFee(l))}</td><td><span class="pill ${loanBalance(l)>.005?'ok':'bad'}">${loanBalance(l)>.005?'Activo':'Pagado'}</span></td><td><div class="actions"><button class="success small" onclick="openPayment('${l.id}')">Cobrar</button><button class="soft small" onclick="loanInfo('${l.id}')">Ver</button><button class="soft small" onclick="contract('${l.id}')">Contrato</button></div></td></tr>`))}
-function renderPayments(){$('paymentTable').innerHTML=table(['Fecha','Cliente','Monto','Tipo','Método','Recibo'],db.payments.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<tr><td>${dateFmt(p.date)}</td><td>${esc(clientLabel(loan(p.loanId)?.clientId))}</td><td>${fmt(p.amount)}</td><td>${esc(p.type)}</td><td>${esc(p.method)}</td><td><button class="soft small" onclick="receipt('${p.id}')">Imprimir</button></td></tr>`))}
-function renderCollectors(){$('collectorTable').innerHTML=table(['Cobrador','Teléfono','Préstamos asignados','Acciones'],db.collectors.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${db.loans.filter(l=>l.collectorId===c.id&&loanBalance(l)>.005).length}</td><td><button class="soft small" onclick="openCollector('${c.id}')">Editar</button><button class="danger small" onclick="delCollector('${c.id}')">Eliminar</button></td></tr>`))}
-function renderReports(){let vals=[['Clientes',db.clients.length],['Préstamos',db.loans.length],['Capital colocado',fmt(db.loans.reduce((s,l)=>s+l.capital,0))],['Interés contratado',fmt(db.loans.reduce((s,l)=>s+l.total-l.capital,0))],['Total cobrado',fmt(db.payments.reduce((s,p)=>s+p.amount,0))],['Balance pendiente',fmt(db.loans.reduce((s,l)=>s+loanBalance(l),0))],['Mora calculada hoy',fmt(db.loans.reduce((s,l)=>s+lateFee(l),0))],['Cobradores',db.collectors.length],['Préstamos activos',db.loans.filter(l=>loanBalance(l)>.005).length]];$('reportStats').innerHTML=vals.map(x=>`<div class="report"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}
-function modal(title,body){$('modal').innerHTML=`<div class="modalbg" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2>${title}</h2><button class="soft" onclick="closeModal()">✕</button></div>${body}</div></div>`}
-function closeModal(){$('modal').innerHTML=''}
-function openClient(cid=''){let c=client(cid)||{};modal(cid?'Editar cliente':'Nuevo cliente',`<form id="f" class="grid2"><div class="field fullfield"><label>Nombre completo *</label><input name="name" required value="${esc(c.name||'')}"></div><div class="field"><label>Cédula / documento</label><input name="cedula" value="${esc(c.cedula||'')}"></div><div class="field"><label>Teléfono *</label><input name="phone" required value="${esc(c.phone||'')}"></div><div class="field fullfield"><label>Dirección</label><input name="address" value="${esc(c.address||'')}"></div><div class="field fullfield"><label>Correo</label><input name="email" type="email" value="${esc(c.email||'')}"></div><div class="field fullfield"><label>Notas / referencias</label><textarea name="notes">${esc(c.notes||'')}</textarea></div><div class="field fullfield"><label>Garantías y documentos (descripción o nombre de archivo)</label><textarea name="docs" placeholder="Ej. Copia de cédula, vehículo como garantía, documento firmado...">${esc(c.docs||'')}</textarea></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar cliente</button></div>`);$('f').onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));if(cid)Object.assign(c,d);else db.clients.push({id:id(),...d});save();closeModal()}}
-function delClient(cid){if(db.loans.some(l=>l.clientId===cid))return alert('Este cliente tiene préstamos asociados.');if(confirm('¿Eliminar cliente?')){db.clients=db.clients.filter(c=>c.id!==cid);save()}}
-function openCollector(cid=''){let c=db.collectors.find(x=>x.id===cid)||{};modal(cid?'Editar cobrador':'Nuevo cobrador',`<form id="f" class="grid2"><div class="field"><label>Nombre *</label><input name="name" required value="${esc(c.name||'')}"></div><div class="field"><label>Teléfono</label><input name="phone" value="${esc(c.phone||'')}"></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar</button></div>`);$('f').onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));if(cid)Object.assign(c,d);else db.collectors.push({id:id(),...d});save();closeModal()}}
-function delCollector(cid){if(db.loans.some(l=>l.collectorId===cid))return alert('Reasigna los préstamos antes de eliminar este cobrador.');if(confirm('¿Eliminar cobrador?')){db.collectors=db.collectors.filter(c=>c.id!==cid);save()}}
-function openLoan(){if(!db.clients.length){alert('Registra un cliente primero.');page('clients');return}modal('Nuevo préstamo',`<form id="f" class="grid2">
-<div class="field fullfield"><label>Cliente *</label><select name="clientId">${db.clients.map(c=>`<option value="${c.id}">${esc(c.name)} · ${esc(c.cedula)}</option>`).join('')}</select></div>
+
+    <section id="auth">
+        <div class="authbox">
+            <img class="brandmark" src="icon.svg" alt="William Préstamos">
+            <div class="brandname">William <span>Préstamos</span></div><div class="tag">Tu confianza, nuestra prioridad.</div>
+            <div id="setup">
+                <h2>Crear cuenta administradora</h2>
+                <form id="setupForm">
+                    <div class="field"><label>Nombre del administrador</label><input name="name" required placeholder="Tu nombre"></div>
+                    <div class="field"><label>Correo o usuario</label><input name="user" required autocomplete="username" placeholder="admin"></div>
+                    <div class="field"><label>Contraseña (mínimo 8 caracteres)</label><input name="pass" type="password" minlength="8" required autocomplete="new-password"></div>
+                    <button class="primary full">Crear cuenta y entrar</button>
+                </form>
+            </div>
+            <div id="login" class="hidden">
+                <h2>Iniciar sesión</h2>
+                <form id="loginForm">
+                    <div class="field"><label>Usuario o correo</label><input name="user" required autocomplete="username"></div>
+                    <div class="field"><label>Contraseña</label><input name="pass" type="password" required autocomplete="current-password"></div>
+                    <button class="primary full">Iniciar sesión</button>
+                </form>
+            </div>
+            <p id="authError" style="color:#bd3345;font-size:12px"></p>
+        </div>
+    </section>
+
+    <div id="application" class="app hidden">
+        <aside class="side">
+            <div class="sidebrand"><img src="icon.svg" alt="Logo"><b>William<small>PRÉSTAMOS</small></b></div>
+            <nav class="nav">
+                <button class="active" data-page="dashboard"><span class="ico">▦</span>Panel principal</button>
+                <button data-page="clients"><span class="ico">♙</span>Clientes</button>
+                <button data-page="loans"><span class="ico">▤</span>Préstamos</button>
+                <button data-page="payments"><span class="ico">＄</span>Pagos y cobros</button>
+                <button data-page="collectors"><span class="ico">♧</span>Cobradores</button>
+                <button data-page="reports"><span class="ico">▥</span>Reportes</button>
+                <button data-page="settings"><span class="ico">⚙</span>Configuración</button>
+            </nav>
+            <div class="sidefoot">William Préstamos<br>Gestión local de cartera</div>
+        </aside>
+        <main class="main">
+            <header class="top"><div><h1 id="pageTitle">Panel principal</h1><div class="muted" id="dateLine"></div></div><div class="topright"><span class="userpill" id="who"></span><button class="gold" onclick="openLoan()">＋ Nuevo préstamo</button><button class="soft" onclick="logout()">Salir</button></div></header>
+            <div class="notice">Versión local de un solo administrador. Los datos se almacenan en este navegador.</div>
+
+            <section id="dashboard" class="page">
+                <div class="cards">
+                    <div class="card"><small>Capital colocado</small><strong id="capitalK">RD$ 0</strong><em>Capital original prestado</em></div>
+                    <div class="card"><small>Total por cobrar</small><strong id="pendingK">RD$ 0</strong><em>Saldo pendiente + mora acumulada</em></div>
+                    <div class="card"><small>Total cobrado</small><strong id="collectedK">RD$ 0</strong><em>Pagos recibidos</em></div>
+                    <div class="card"><small>Préstamos activos</small><strong id="activeK">0</strong><em>Con balance pendiente</em></div>
+                </div>
+                <div class="panel"><div class="panelhead"><h2>Próximos vencimientos</h2><button class="soft small" onclick="page('loans')">Ver préstamos</button></div><div id="dueTable"></div></div>
+                <div class="panel"><div class="panelhead"><h2>Actividad reciente</h2></div><div id="activity"></div></div>
+            </section>
+
+            <section id="clients" class="page hidden"><div class="panel"><div class="panelhead"><h2>Clientes</h2><button class="primary" onclick="openClient()">＋ Agregar cliente</button></div><div class="toolbar"><input id="clientQ" placeholder="Buscar nombre, cédula o teléfono..." oninput="renderClients()"></div><div id="clientTable"></div></div></section>
+            <section id="loans" class="page hidden"><div class="panel"><div class="panelhead"><h2>Préstamos</h2><button class="primary" onclick="openLoan()">＋ Nuevo préstamo</button></div><div class="toolbar"><input id="loanQ" placeholder="Buscar cliente o código..." oninput="renderLoans()"><select id="loanF" onchange="renderLoans()"><option value="all">Todos</option><option value="active">Activos</option><option value="paid">Pagados</option></select></div><div id="loanTable"></div></div></section>
+            <section id="payments" class="page hidden"><div class="panel"><div class="panelhead"><h2>Pagos y cobros</h2><button class="primary" onclick="openPayment()">＋ Registrar pago</button></div><div class="toolbar"><input id="payQ" placeholder="Buscar cliente o referencia..." oninput="renderPayments()"></div><div id="paymentTable"></div></div></section>
+            <section id="collectors" class="page hidden"><div class="panel"><div class="panelhead"><h2>Cobradores</h2><button class="primary" onclick="openCollector()">＋ Agregar cobrador</button></div><div id="collectorTable"></div></div></section>
+            <section id="reports" class="page hidden"><div class="panel"><div class="panelhead"><h2>Resumen financiero</h2><button class="soft" onclick="printDocCustom(document.body.innerHTML, false)">Imprimir</button></div><div id="reportStats" class="reportgrid"></div></div><div class="panel"><h2>Respaldo y restauración</h2><div class="toolbar"><button class="primary" onclick="backup()">Descargar respaldo</button><label class="soft" style="padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer" for="restore">Restaurar archivo</label><input class="hidden" id="restore" type="file" accept="application/json" onchange="restore(event)"></div></div></section>
+            <section id="settings" class="page hidden"><div class="panel"><h2>Configuración del negocio</h2><div class="grid2" style="margin-top:15px"><div class="field"><label>Nombre comercial</label><input id="bizName"></div><div class="field"><label>Teléfono del negocio</label><input id="bizPhone"></div><div class="field"><label>Dirección</label><input id="bizAddress"></div><div class="field"><label>Mora predeterminada (% diario sobre cuota vencida)</label><input id="defaultLate" type="number" min="0" step=".01"></div></div><button class="primary" onclick="saveSettings()">Guardar configuración</button></div>
+    </div></section>
+    <div class="footer">William Préstamos · Tu confianza, nuestra prioridad.</div>
+    </main>
+    </div>
+
+    <div id="modal"></div>
+
+    <script>
+        const DBKEY = 'wp_business_v2', AUTHKEY = 'wp_auth_v2', SESSION = 'wp_session_v2';
+        let db = load(), auth = JSON.parse(localStorage.getItem(AUTHKEY) || 'null'), current = null;
+
+        function fresh() { return { clients: [], loans: [], payments: [], collectors: [], settings: { name: 'William Préstamos', phone: '', address: '', lateRate: 0.5 } } }
+        function load() { try { return JSON.parse(localStorage.getItem(DBKEY)) || fresh() } catch { return fresh() } }
+        function save() { localStorage.setItem(DBKEY, JSON.stringify(db)); render() }
+
+        const $ = id => document.getElementById(id), fmt = n => 'RD$ ' + Number(n || 0).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])), id = () => Math.random().toString(36).slice(2, 7).toUpperCase() + Date.now().toString(36).slice(-4).toUpperCase(), today = () => new Date().toISOString().slice(0, 10), dateFmt = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('es-DO') : '—';
+
+        const client = id => db.clients.find(c => c.id === id), clientLabel = id => client(id)?.name || 'Cliente eliminado', loan = id => db.loans.find(l => l.id === id);
+
+        function dateAdd(d, n, unit) { let x = new Date(d + 'T12:00:00'); if (unit === 'Diario') x.setDate(x.getDate() + n); if (unit === 'Semanal') x.setDate(x.getDate() + 7 * n); if (unit === 'Quincenal') x.setDate(x.getDate() + 15 * n); if (unit === 'Mensual') x.setMonth(x.getMonth() + n); return x.toISOString().slice(0, 10) }
+        function installments(l) { return Array.from({ length: l.terms }, (_, i) => ({ n: i + 1, due: dateAdd(l.firstDue || l.start, i, l.frequency), amount: l.total / l.terms })) }
+        function loanPaid(l) { return db.payments.filter(p => p.loanId === l.id).reduce((s, p) => s + p.amount, 0) }
+        function loanBalance(l) { return Math.max(0, l.total - loanPaid(l)) }
+        function lateFee(l) { let paid = loanPaid(l), fee = 0; for (const x of installments(l)) { let due = new Date(x.due + 'T23:59:59'), days = Math.max(0, Math.floor((new Date() - due) / 86400000)); let covered = Math.min(x.amount, paid); paid -= covered; let overdue = x.amount - covered; if (overdue > 0 && days > 0) fee += overdue * (Number(l.lateRate || 0) / 100) * days } return fee }
+        function dueRows(l) { let paid = loanPaid(l); return installments(l).map(x => { let covered = Math.min(x.amount, paid); paid -= covered; return { ...x, remaining: x.amount - covered } }) }
+
+        window.addEventListener('popstate', (e) => { if ($('modal').innerHTML !== '') closeModal(false); });
+
+        function authInit() { if (auth) { $('setup').classList.add('hidden'); $('login').classList.remove('hidden') } else { $('setup').classList.remove('hidden'); $('login').classList.add('hidden') } }
+        async function hash(s) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s + '|WilliamPrestamosLocalSalt')); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('') }
+
+        $('setupForm').onsubmit = async e => { e.preventDefault(); let d = Object.fromEntries(new FormData(e.target)); auth = { name: d.name, user: d.user.toLowerCase(), hash: await hash(d.pass) }; localStorage.setItem(AUTHKEY, JSON.stringify(auth)); enter() };
+        $('loginForm').onsubmit = async e => { e.preventDefault(); let d = Object.fromEntries(new FormData(e.target)); if (d.user.toLowerCase() === auth.user && await hash(d.pass) === auth.hash) enter(); else $('authError').textContent = 'Usuario o contraseña incorrectos.' };
+
+        function enter() { current = auth; sessionStorage.setItem(SESSION, '1'); $('auth').classList.add('hidden'); $('application').classList.remove('hidden'); $('who').textContent = '👤 ' + auth.name; $('dateLine').textContent = new Date().toLocaleDateString('es-DO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); render(); authInit() }
+        function logout() { $('application').classList.add('hidden'); $('auth').classList.remove('hidden'); $('loginForm').reset(); authInit(); sessionStorage.removeItem(SESSION) }
+
+        function page(p) { document.querySelectorAll('.page').forEach(x => x.classList.add('hidden')); $(p).classList.remove('hidden'); document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.page === p)); $('pageTitle').textContent = ({ dashboard: 'Panel principal', clients: 'Clientes', loans: 'Préstamos', payments: 'Pagos y cobros', collectors: 'Cobradores', reports: 'Reportes', settings: 'Configuración' })[p]; render() }
+        document.querySelectorAll('.nav button').forEach(b => b.onclick = () => page(b.dataset.page));
+
+        function table(head, rows) { return rows.length ? '<div class="tablewrap"><table><thead><tr>' + head.map(x => '<th>' + x + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>' : '<div class="empty">No hay registros todavía.</div>' }
+        function render() { renderDash(); renderClients(); renderLoans(); renderPayments(); renderCollectors(); renderReports(); if ($('bizName')) { $('bizName').value = db.settings.name || 'William Préstamos'; $('bizPhone').value = db.settings.phone || ''; $('bizAddress').value = db.settings.address || ''; $('defaultLate').value = db.settings.lateRate ?? .5 } }
+        function renderDash() { let capital = db.loans.reduce((s, l) => s + l.capital, 0), collected = db.payments.reduce((s, p) => s + p.amount, 0), pending = db.loans.reduce((s, l) => s + loanBalance(l) + lateFee(l), 0); $('capitalK').textContent = fmt(capital); $('collectedK').textContent = fmt(collected); $('pendingK').textContent = fmt(pending); $('activeK').textContent = db.loans.filter(l => loanBalance(l) > .005).length; let upcoming = []; db.loans.forEach(l => dueRows(l).forEach(x => { if (x.remaining > .005) upcoming.push({ l, x }) })); upcoming.sort((a, b) => a.x.due.localeCompare(b.x.due)); $('dueTable').innerHTML = table(['Cliente', 'Cuota', 'Vencimiento', 'Pendiente', 'Estado'], upcoming.slice(0, 8).map(({ l, x }) => `<tr><td>${esc(clientLabel(l.clientId))}</td><td>${x.n}/${l.terms}</td><td>${dateFmt(x.due)}</td><td>${fmt(x.remaining)}</td><td><span class="pill ${x.due < today() ? 'bad' : 'warn'}">${x.due < today() ? 'Vencida' : 'Pendiente'}</span></td></tr>`)); $('activity').innerHTML = table(['Fecha', 'Cliente', 'Monto', 'Método'], db.payments.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6).map(p => `<tr><td>${dateFmt(p.date)}</td><td>${esc(clientLabel(loan(p.loanId)?.clientId))}</td><td>${fmt(p.amount)}</td><td>${esc(p.method)}</td></tr>`)) }
+        function renderClients() { let q = ($('clientQ')?.value || '').toLowerCase(); $('clientTable').innerHTML = table(['Nombre', 'Cédula', 'Teléfono', 'Dirección', 'Acciones'], db.clients.filter(c => (c.name + c.cedula + c.phone).toLowerCase().includes(q)).map(c => `<tr><td><b>${esc(c.name)}</b></td><td>${esc(c.cedula)}</td><td>${esc(c.phone)}</td><td>${esc(c.address || '—')}</td><td><div class="actions"><button class="soft small" onclick="openClient('${c.id}')">Editar</button><button class="soft small" onclick="statement('${c.id}')">Estado cuenta</button><button class="danger small" onclick="delClient('${c.id}')">Eliminar</button></div></td></tr>`)) }
+        function renderLoans() { let q = ($('loanQ')?.value || '').toLowerCase(), f = $('loanF')?.value || 'all'; $('loanTable').innerHTML = table(['Código / Cliente', 'Capital', 'Interés', 'Total', 'Cuota', 'Balance', 'Mora', 'Estado', 'Acciones'], db.loans.filter(l => (clientLabel(l.clientId) + l.id).toLowerCase().includes(q) && (f === 'all' || (f === 'active' ? loanBalance(l) > .005 : loanBalance(l) <= .005))).map(l => `<tr><td><b>${l.id}</b><br>${esc(clientLabel(l.clientId))}</td><td>${fmt(l.capital)}</td><td>${l.rate}% ${esc(l.rateMode)}</td><td>${fmt(l.total)}</td><td>${fmt(l.total / l.terms)}</td><td>${fmt(loanBalance(l))}</td><td>${fmt(lateFee(l))}</td><td><span class="pill ${loanBalance(l) > .005 ? 'ok' : 'bad'}">${loanBalance(l) > .005 ? 'Activo' : 'Pagado'}</span></td><td><div class="actions"><button class="success small" onclick="openPayment('${l.id}')">Cobrar</button><button class="soft small" onclick="loanInfo('${l.id}')">Ver</button><button class="soft small" onclick="contract('${l.id}')">Contrato</button></div></td></tr>`)) }
+        function renderPayments() { $('paymentTable').innerHTML = table(['Fecha', 'Cliente', 'Monto', 'Tipo', 'Método', 'Recibo'], db.payments.slice().sort((a, b) => b.date.localeCompare(a.date)).map(p => `<tr><td>${dateFmt(p.date)}</td><td>${esc(clientLabel(loan(p.loanId)?.clientId))}</td><td>${fmt(p.amount)}</td><td>${esc(p.type)}</td><td>${esc(p.method)}</td><td><button class="soft small" onclick="receipt('${p.id}')">Imprimir</button></td></tr>`)) }
+        function renderCollectors() { $('collectorTable').innerHTML = table(['Cobrador', 'Teléfono', 'Préstamos asignados', 'Acciones'], db.collectors.map(c => `<tr><td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${db.loans.filter(l => l.collectorId === c.id && loanBalance(l) > .005).length}</td><td><button class="soft small" onclick="openCollector('${c.id}')">Editar</button><button class="danger small" onclick="delCollector('${c.id}')">Eliminar</button></td></tr>`)) }
+        function renderReports() { let vals = [['Clientes', db.clients.length], ['Préstamos', db.loans.length], ['Capital colocado', fmt(db.loans.reduce((s, l) => s + l.capital, 0))], ['Interés contratado', fmt(db.loans.reduce((s, l) => s + l.total - l.capital, 0))], ['Total cobrado', fmt(db.payments.reduce((s, p) => s + p.amount, 0))], ['Balance pendiente', fmt(db.loans.reduce((s, l) => s + loanBalance(l), 0))], ['Mora calculada hoy', fmt(db.loans.reduce((s, l) => s + lateFee(l), 0))], ['Cobradores', db.collectors.length], ['Préstamos activos', db.loans.filter(l => loanBalance(l) > .005).length]]; $('reportStats').innerHTML = vals.map(x => `<div class="report"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('') }
+
+        function modal(title, body) {
+            history.pushState({ modal: true }, title);
+            $('modal').innerHTML = `<div class="modalbg" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2>${title}</h2><button class="soft" onclick="closeModal()">✕</button></div>${body}</div></div>`;
+        }
+        function closeModal(popHistory = true) {
+            $('modal').innerHTML = '';
+            if (popHistory && history.state?.modal) history.back();
+        }
+
+        function openClient(cid = '') { let c = client(cid) || {}; modal(cid ? 'Editar cliente' : 'Nuevo cliente', `<form id="f" class="grid2"><div class="field fullfield"><label>Nombre completo *</label><input name="name" required value="${esc(c.name || '')}"></div><div class="field"><label>Cédula / documento</label><input name="cedula" value="${esc(c.cedula || '')}"></div><div class="field"><label>Teléfono *</label><input name="phone" required value="${esc(c.phone || '')}"></div><div class="field fullfield"><label>Dirección</label><input name="address" value="${esc(c.address || '')}"></div><div class="field fullfield"><label>Correo</label><input name="email" type="email" value="${esc(c.email || '')}"></div><div class="field fullfield"><label>Notas / referencias</label><textarea name="notes">${esc(c.notes || '')}</textarea></div><div class="field fullfield"><label>Garantías y documentos</label><textarea name="docs">${esc(c.docs || '')}</textarea></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar cliente</button></div>`); $('f').onsubmit = e => { e.preventDefault(); let d = Object.fromEntries(new FormData(e.target)); if (cid) Object.assign(c, d); else db.clients.push({ id: id(), ...d }); save(); closeModal() } }
+        function delClient(cid) { if (db.loans.some(l => l.clientId === cid)) return alert('Este cliente tiene préstamos asociados.'); if (confirm('¿Eliminar cliente?')) { db.clients = db.clients.filter(c => c.id !== cid); save() } }
+
+        function openCollector(cid = '') { let c = db.collectors.find(x => x.id === cid) || {}; modal(cid ? 'Editar cobrador' : 'Nuevo cobrador', `<form id="f" class="grid2"><div class="field"><label>Nombre *</label><input name="name" required value="${esc(c.name || '')}"></div><div class="field"><label>Teléfono</label><input name="phone" value="${esc(c.phone || '')}"></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar</button></div>`); $('f').onsubmit = e => { e.preventDefault(); let d = Object.fromEntries(new FormData(e.target)); if (cid) Object.assign(c, d); else db.collectors.push({ id: id(), ...d }); save(); closeModal() } }
+        function delCollector(cid) { if (db.loans.some(l => l.collectorId === cid)) return alert('Reasigna los préstamos antes de eliminar este cobrador.'); if (confirm('¿Eliminar cobrador?')) { db.collectors = db.collectors.filter(c => c.id !== cid); save() } }
+
+        function openLoan() {
+            if (!db.clients.length) { alert('Registra un cliente primero.'); page('clients'); return } modal('Nuevo préstamo', `<form id="f" class="grid2">
+<div class="field fullfield"><label>Cliente *</label><select name="clientId">${db.clients.map(c => `<option value="${c.id}">${esc(c.name)} · ${esc(c.cedula)}</option>`).join('')}</select></div>
 <div class="field"><label>Capital (RD$) *</label><input name="capital" type="number" min="1" step=".01" required></div>
 <div class="field"><label>Tipo de interés</label><select name="rateMode"><option>Fijo sobre capital</option><option>Mensual simple</option></select></div>
 <div class="field"><label>Tasa (%) *</label><input name="rate" type="number" min="0" step=".01" value="10" required></div>
@@ -127,25 +956,157 @@ function openLoan(){if(!db.clients.length){alert('Registra un cliente primero.')
 <div class="field"><label>Frecuencia</label><select name="frequency"><option>Diario</option><option>Semanal</option><option>Quincenal</option><option selected>Mensual</option></select></div>
 <div class="field"><label>Fecha de inicio</label><input name="start" type="date" value="${today()}" required></div>
 <div class="field"><label>Primer vencimiento</label><input name="firstDue" type="date" value="${today()}" required></div>
-<div class="field"><label>Mora diaria (% cuota vencida)</label><input name="lateRate" type="number" min="0" step=".01" value="${db.settings.lateRate??.5}"></div>
-<div class="field"><label>Cobrador asignado</label><select name="collectorId"><option value="">Sin asignar</option>${db.collectors.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
-<div class="field fullfield"><label>Garantía / condiciones / observaciones</label><textarea name="guarantee" placeholder="Descripción de la garantía y condiciones pactadas"></textarea></div>
+<div class="field"><label>Mora diaria (% cuota vencida)</label><input name="lateRate" type="number" min="0" step=".01" value="${db.settings.lateRate ?? .5}"></div>
+<div class="field"><label>Cobrador asignado</label><select name="collectorId"><option value="">Sin asignar</option>${db.collectors.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
+<div class="field fullfield"><label>Garantía / condiciones</label><textarea name="guarantee"></textarea></div>
 <div class="field fullfield summary" id="preview">Completa los datos para ver el cálculo.</div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar préstamo</button></div>`);
-const form=$('f');function calc(){let d=Object.fromEntries(new FormData(form)),cap=+d.capital||0,r=+d.rate||0,t=+d.terms||1,interest=d.rateMode==='Mensual simple'?cap*r/100*t:cap*r/100,total=cap+interest;$('preview').innerHTML=`Interés estimado: <b>${fmt(interest)}</b><br>Total a pagar: <b>${fmt(total)}</b><br>Cuota estimada: <b>${fmt(total/t)}</b><br><small>Interés fijo calculado al originar el préstamo; verifica las condiciones del contrato antes de confirmar.</small>`}form.oninput=calc;calc();form.onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(form)),cap=+d.capital,r=+d.rate,t=+d.terms;if(cap<=0||t<1||r<0)return alert('Revisa capital, tasa y plazo.');let interest=d.rateMode==='Mensual simple'?cap*r/100*t:cap*r/100,total=cap+interest;db.loans.push({id:id(),...d,capital:cap,rate:r,terms:t,lateRate:+d.lateRate,total,created:today()});save();closeModal()}}
-function openPayment(lid=''){let opts=db.loans.filter(l=>loanBalance(l)>.005);if(!opts.length)return alert('No hay préstamos activos.');modal('Registrar pago',`<form id="f" class="grid2"><div class="field fullfield"><label>Préstamo</label><select name="loanId" id="pl">${opts.map(l=>`<option value="${l.id}" ${l.id===lid?'selected':''}>${esc(clientLabel(l.clientId))} · ${l.id} · Saldo ${fmt(loanBalance(l))}</option>`).join('')}</select></div><div class="field"><label>Tipo de movimiento</label><select name="type" id="ptype"><option>Cuota / pago normal</option><option>Abono a capital</option><option>Pago de mora</option></select></div><div class="field"><label>Monto recibido (RD$)</label><input name="amount" type="number" min=".01" step=".01" required></div><div class="field"><label>Fecha</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Método</label><select name="method"><option>Efectivo</option><option>Transferencia</option><option>Depósito</option><option>Otro</option></select></div><div class="field fullfield"><label>Referencia / nota</label><input name="note"></div><div class="field fullfield summary" id="pinfo"></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar pago e imprimir recibo</button></div>`);
-function info(){let l=loan($('pl').value);$('pinfo').innerHTML=`Balance principal/contratado: <b>${fmt(loanBalance(l))}</b><br>Mora estimada: <b>${fmt(lateFee(l))}</b>`} $('pl').onchange=info;info();$('f').onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target)),l=loan(d.loanId),amount=+d.amount;if(!l||amount<=0)return alert('Monto inválido.');if(d.type!=='Pago de mora'&&amount>loanBalance(l)+.005)return alert('El monto supera el balance pendiente. Para un abono a capital, registra solo el monto que deseas aplicar.');if(d.type==='Pago de mora'&&amount>lateFee(l)+.005)return alert('El monto supera la mora calculada.');db.payments.push({id:id(),...d,amount});save();let p=db.payments.at(-1);closeModal();receipt(p.id)}}
-function receipt(pid){let p=db.payments.find(x=>x.id===pid),l=loan(p.loanId);printDoc('Recibo de pago',`<h2>${esc(db.settings.name)}</h2><p style="text-align:center">RECIBO DE PAGO</p><hr><p><b>Recibo:</b> ${p.id}</p><p><b>Fecha:</b> ${dateFmt(p.date)}</p><p><b>Cliente:</b> ${esc(clientLabel(l.clientId))}</p><p><b>Préstamo:</b> ${l.id}</p><h2>Recibido: ${fmt(p.amount)}</h2><p><b>Concepto:</b> ${esc(p.type)}</p><p><b>Método:</b> ${esc(p.method)}</p><p><b>Balance:</b> ${fmt(loanBalance(l))}</p><p><b>Referencia:</b> ${esc(p.note||'—')}</p><br><p>Firma: __________________________</p>`)}
-function contract(lid){let l=loan(lid),c=client(l.clientId);printDoc('Contrato de préstamo',`<h2>${esc(db.settings.name)}</h2><h3 style="text-align:center">CONTRATO / RESUMEN DE PRÉSTAMO</h3><p>En fecha ${dateFmt(l.start)}, se registra el préstamo ${l.id} a favor de <b>${esc(c?.name)}</b>, documento ${esc(c?.cedula||'no indicado')}, teléfono ${esc(c?.phone||'')}.</p><p><b>Capital:</b> ${fmt(l.capital)}<br><b>Interés:</b> ${l.rate}% (${esc(l.rateMode)})<br><b>Total pactado:</b> ${fmt(l.total)}<br><b>Plazo:</b> ${l.terms} cuotas ${esc(l.frequency)}<br><b>Cuota estimada:</b> ${fmt(l.total/l.terms)}<br><b>Primer vencimiento:</b> ${dateFmt(l.firstDue)}<br><b>Garantía:</b> ${esc(l.guarantee||'No especificada')}</p><p>Las partes deben revisar y completar las condiciones, obligaciones, cargos y consecuencias de incumplimiento antes de firmar. Este documento es una plantilla administrativa y no sustituye asesoría legal ni un contrato revisado por un profesional.</p><br><div style="display:flex;justify-content:space-between;margin-top:70px"><span>____________________<br>Acreedor</span><span>____________________<br>Deudor</span></div>`)}
-function statement(cid){let ls=db.loans.filter(l=>l.clientId===cid),rows=ls.map(l=>`<tr><td>${l.id}</td><td>${dateFmt(l.start)}</td><td>${fmt(l.total)}</td><td>${fmt(loanPaid(l))}</td><td>${fmt(loanBalance(l))}</td></tr>`).join('');printDoc('Estado de cuenta',`<h2>${esc(db.settings.name)}</h2><h3>Estado de cuenta del cliente</h3><p><b>Cliente:</b> ${esc(clientLabel(cid))}</p><p><b>Documento:</b> ${esc(client(cid)?.cedula||'—')} &nbsp; <b>Teléfono:</b> ${esc(client(cid)?.phone||'—')}</p><table><thead><tr><th>Préstamo</th><th>Fecha</th><th>Total</th><th>Pagado</th><th>Balance</th></tr></thead><tbody>${rows}</tbody></table><p><b>Balance total:</b> ${fmt(ls.reduce((s,l)=>s+loanBalance(l),0))}</p>`)}
-function printDoc(title,body){let w=window.open('','_blank');if(!w)return alert('Permite ventanas emergentes para imprimir.');w.document.write(`<!doctype html><html><head><title>${title}</title><style>body{font:14px Arial;max-width:750px;margin:35px auto;padding:15px;color:#18243a}h2{text-align:center;color:#0b1d3a}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ccc;padding:9px;text-align:left}hr{border:0;border-top:1px solid #bbb}</style></head><body>${body}<script>window.onload=()=>window.print()<\\/script></body></html>`);w.document.close()}
-function loanInfo(lid){let l=loan(lid);modal('Detalle del préstamo',`<div class="summary"><b>Cliente:</b> ${esc(clientLabel(l.clientId))}<br><b>Código:</b> ${l.id}<br><b>Capital:</b> ${fmt(l.capital)}<br><b>Interés:</b> ${l.rate}% (${esc(l.rateMode)})<br><b>Total:</b> ${fmt(l.total)}<br><b>Pagado:</b> ${fmt(loanPaid(l))}<br><b>Balance:</b> ${fmt(loanBalance(l))}<br><b>Mora estimada:</b> ${fmt(lateFee(l))}<br><b>Cobrador:</b> ${esc(db.collectors.find(c=>c.id===l.collectorId)?.name||'Sin asignar')}<br><b>Garantía:</b> ${esc(l.guarantee||'—')}</div><h3>Calendario de cuotas</h3>${table(['N.º','Vencimiento','Cuota','Pendiente','Estado'],dueRows(l).map(x=>`<tr><td>${x.n}</td><td>${dateFmt(x.due)}</td><td>${fmt(x.amount)}</td><td>${fmt(x.remaining)}</td><td>${x.remaining>.005?(x.due<today()?'Vencida':'Pendiente'):'Pagada'}</td></tr>`))}<div class="modalfoot"><button class="soft" onclick="closeModal()">Cerrar</button><button class="primary" onclick="closeModal();openPayment('${lid}')">Registrar pago</button></div>`)}
-function saveSettings(){db.settings.name=$('bizName').value.trim()||'William Préstamos';db.settings.phone=$('bizPhone').value;db.settings.address=$('bizAddress').value;db.settings.lateRate=Number($('defaultLate').value)||0;save();alert('Configuración guardada.')}
-function backup(){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.href=u;a.download='William-Prestamos-respaldo-'+today()+'.json';a.click();URL.revokeObjectURL(u)}
-function restore(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.clients)||!Array.isArray(x.loans)||!Array.isArray(x.payments))throw 0;if(confirm('Esto reemplazará los datos actuales. ¿Continuar?')){db=x;save();alert('Respaldo restaurado.')}}catch{alert('Archivo de respaldo inválido.')}e.target.value=''};r.readAsText(f)}
-function resetData(){if(prompt('Escribe BORRAR para confirmar:')==='BORRAR'){db=fresh();save();alert('Datos eliminados.')}}
-function checkReminders(){let due=[];db.loans.forEach(l=>dueRows(l).forEach(x=>{if(x.remaining>.005&&x.due<=today())due.push({l,x})}));if(due.length&&'Notification'in window&&Notification.permission==='granted')new Notification('William Préstamos',{body:due.length+' cuota(s) vencida(s) o con vencimiento hoy.'})}
-authInit();if(sessionStorage.getItem(SESSION)==='1'&&auth)enter();else{$('auth').classList.remove('hidden');$('application').classList.add('hidden')}
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
-if('Notification'in window&&Notification.permission==='default'&&location.protocol.startsWith('http')){ /* Solicitud bajo acción del usuario desde el navegador */ }
-</script>
-</body></html>
+            const form = $('f'); function calc() { let d = Object.fromEntries(new FormData(form)), cap = +d.capital || 0, r = +d.rate || 0, t = +d.terms || 1, interest = d.rateMode === 'Mensual simple' ? cap * r / 100 * t : cap * r / 100, total = cap + interest; $('preview').innerHTML = `Interés estimado: <b>${fmt(interest)}</b><br>Total a pagar: <b>${fmt(total)}</b><br>Cuota estimada: <b>${fmt(total / t)}</b>` } form.oninput = calc; calc(); form.onsubmit = e => { e.preventDefault(); let d = Object.fromEntries(new FormData(form)), cap = +d.capital, r = +d.rate, t = +d.terms; if (cap <= 0 || t < 1 || r < 0) return alert('Revisa capital, tasa y plazo.'); let interest = d.rateMode === 'Mensual simple' ? cap * r / 100 * t : cap * r / 100, total = cap + interest; db.loans.push({ id: id(), ...d, capital: cap, rate: r, terms: t, lateRate: +d.lateRate, total, created: today() }); save(); closeModal() }
+        }
+
+        function openPayment(lid = '') {
+            let opts = db.loans.filter(l => loanBalance(l) > .005); if (!opts.length) return alert('No hay préstamos activos.'); modal('Registrar pago', `<form id="f" class="grid2"><div class="field fullfield"><label>Préstamo</label><select name="loanId" id="pl">${opts.map(l => `<option value="${l.id}" ${l.id === lid ? 'selected' : ''}>${esc(clientLabel(l.clientId))} · ${l.id} · Saldo ${fmt(loanBalance(l))}</option>`).join('')}</select></div><div class="field"><label>Tipo de movimiento</label><select name="type"><option>Cuota / pago normal</option><option>Abono a capital</option><option>Pago de mora</option></select></div><div class="field"><label>Monto recibido (RD$)</label><input name="amount" type="number" min=".01" step=".01" required></div><div class="field"><label>Fecha</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Método</label><select name="method"><option>Efectivo</option><option>Transferencia</option><option>Depósito</option><option>Otro</option></select></div><div class="field fullfield"><label>Referencia / nota</label><input name="note"></div><div class="field fullfield summary" id="pinfo"></div></form><div class="modalfoot"><button class="soft" onclick="closeModal()">Cancelar</button><button class="primary" onclick="f.requestSubmit()">Guardar pago e imprimir</button></div>`);
+            function info() { let l = loan($('pl').value); $('pinfo').innerHTML = `Balance pendiente: <b>${fmt(loanBalance(l))}</b><br>Mora estimada: <b>${fmt(lateFee(l))}</b>` } $('pl').onchange = info; info(); $('f').onsubmit = e => { e.preventDefault(); let d = Object.fromEntries(new FormData(e.target)), l = loan(d.loanId), amount = +d.amount; if (!l || amount <= 0) return alert('Monto inválido.'); db.payments.push({ id: id(), ...d, amount }); save(); let p = db.payments.at(-1); closeModal(); receipt(p.id) }
+        }
+
+        function saveSettings() { db.settings = { name: $('bizName').value || 'William Préstamos', phone: $('bizPhone').value || '', address: $('bizAddress').value || '', lateRate: +$('defaultLate').value || 0 }; save(); alert('Configuración guardada.') }
+        function backup() { let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db)); let a = document.createElement('a'); a.href = dataStr; a.download = 'william_prestamos_backup_' + today() + '.json'; a.click() }
+        function restore(e) { let f = e.target.files[0]; if (!f) return; let r = new FileReader(); r.onload = ex => { try { db = JSON.parse(ex.target.result); save(); alert('Restaurado.') } catch { alert('Archivo inválido.') } }; r.readAsText(f) }
+
+        /* --- SISTEMA DE IMPRESIÓN ADAPTADO A TICKETS O CARTA --- */
+
+        function printDocCustom(htmlContent, isTicket = false) {
+            if (isTicket) {
+                document.body.classList.add('ticket-mode');
+            } else {
+                document.body.classList.remove('ticket-mode');
+            }
+
+            modal('Vista previa de impresión', `
+        <div style="margin-bottom:10px;text-align:right" class="no-print">
+          <label style="font-size:12px;font-weight:bold;cursor:pointer"><input type="checkbox" id="chkTicket" ${isTicket ? 'checked' : ''} onchange="toggleTicketMode(this.checked)"> Modo Impresora de Ticket (58mm/80mm)</label>
+        </div>
+        <div class="print-doc" id="printArea">
+          ${htmlContent}
+        </div>
+        <div class="modalfoot no-print">
+          <button class="soft" onclick="closeModal()">Volver</button>
+          <button class="primary" onclick="window.print()">Imprimir Ahora</button>
+        </div>
+      `);
+        }
+
+        function toggleTicketMode(isTicket) {
+            if (isTicket) {
+                document.body.classList.add('ticket-mode');
+            } else {
+                document.body.classList.remove('ticket-mode');
+            }
+        }
+
+        function receipt(pid) {
+            let p = db.payments.find(x => x.id === pid), l = loan(p.loanId), c = client(l.clientId);
+            let content = `
+        <div class="print-header">
+          <div>
+            <h1>${esc(db.settings.name)}</h1>
+            <p>${esc(db.settings.address || 'República Dominicana')}</p>
+            <p>Tel: ${esc(db.settings.phone || '—')}</p>
+          </div>
+          <div style="text-align:right">
+            <h3 style="margin:0;color:var(--navy)">RECIBO DE PAGO</h3>
+            <p><b>Ticket:</b> #${p.id}</p>
+            <p><b>Fecha:</b> ${dateFmt(p.date)}</p>
+          </div>
+        </div>
+
+        <div class="print-grid">
+          <div class="print-box">
+            <b>CLIENTE:</b> ${esc(c?.name)}<br>
+            <b>Cédula:</b> ${esc(c?.cedula || 'N/A')}
+          </div>
+          <div class="print-box">
+            <b>PRÉSTAMO:</b> #${l.id}<br>
+            <b>Método:</b> ${esc(p.method)}
+          </div>
+        </div>
+
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th style="text-align:right">Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${esc(p.type)} (${esc(p.note || 'Sin nota')})</td>
+              <td style="text-align:right">${fmt(p.amount)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="print-totals">
+          <div><span>Pagado:</span> <span>${fmt(p.amount)}</span></div>
+          <div class="grand-total"><span>Nuevo Saldo:</span> <span>${fmt(loanBalance(l))}</span></div>
+        </div>
+
+        <div class="print-signatures">
+          <div>Firma del Cliente</div>
+        </div>
+      `;
+            // Por defecto se abre en modo ticket térmico para mayor comodidad, o puedes cambiar a false
+            printDocCustom(content, true);
+        }
+
+        function statement(cid) {
+            let c = client(cid), loans = db.loans.filter(l => l.clientId === cid);
+            let totalBal = loans.reduce((s, l) => s + loanBalance(l) + lateFee(l), 0);
+            let loansHtml = loans.map(l => `
+        <tr style="background:#f0f4f9;font-weight:bold"><td colspan="2">Préstamo #${l.id}</td><td style="text-align:right">Balance: ${fmt(loanBalance(l) + lateFee(l))}</td></tr>
+      `).join('');
+
+            let content = `
+        <div class="print-header">
+          <div>
+            <h1>${esc(db.settings.name)}</h1>
+            <p>Tel: ${esc(db.settings.phone)}</p>
+          </div>
+          <div style="text-align:right">
+            <h3>ESTADO DE CUENTA</h3>
+            <p>${dateFmt(today())}</p>
+          </div>
+        </div>
+        <div class="print-box"><b>Cliente:</b> ${esc(c?.name)}<br><b>Cédula:</b> ${esc(c?.cedula || 'N/A')}</div>
+        <table class="print-table"><thead><tr><th>Préstamo / Ref</th><th>Detalle</th><th style="text-align:right">Saldo</th></tr></thead><tbody>${loansHtml}</tbody></table>
+        <div class="print-totals"><div class="grand-total"><span>Total Deuda:</span> <span>${fmt(totalBal)}</span></div></div>
+      `;
+            printDocCustom(content, false);
+        }
+
+        function loanInfo(lid) {
+            let l = loan(lid), c = client(l.clientId);
+            let rows = dueRows(l).map(x => `<tr><td>C.${x.n} (${dateFmt(x.due)})</td><td style="text-align:right">${fmt(x.remaining)}</td></tr>`).join('');
+            let content = `
+        <div class="print-header"><div><h1>${esc(db.settings.name)}</h1><p>Cuotas Préstamo #${l.id}</p></div></div>
+        <p><b>Cliente:</b> ${esc(c?.name)}</p>
+        <table class="print-table"><thead><tr><th>Cuota / Vencimiento</th><th style="text-align:right">Pendiente</th></tr></thead><tbody>${rows}</tbody></table>
+        <div class="print-totals"><div class="grand-total"><span>Balance Total:</span> <span>${fmt(loanBalance(l))}</span></div></div>
+      `;
+            printDocCustom(content, true);
+        }
+
+        function contract(lid) {
+            let l = loan(lid), c = client(l.clientId);
+            let content = `
+        <div class="print-header" style="text-align:center;display:block">
+          <h1>${esc(db.settings.name)}</h1>
+          <h3>CONTRATO DE PRÉSTAMO #${l.id}</h3>
+        </div>
+        <p style="font-size:11px;text-align:justify">Fecha: ${dateFmt(l.start)}. Entre los suscritos se acuerda el préstamo de <b>${fmt(l.capital)}</b> otorgado a <b>${esc(c?.name)}</b> (Cédula: ${esc(c?.cedula || 'N/A')}) bajo un total pactado de <b>${fmt(l.total)}</b> en ${l.terms} cuotas ${esc(l.frequency)}.</p>
+        <div class="print-signatures"><div>Deudor(a)</div><div>Prestamista</div></div>
+      `;
+            printDocCustom(content, false);
+        }
+    </script>
+</body>
+</html>
